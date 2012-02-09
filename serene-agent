@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+#
+# serene-agent - adedommelin@serene-project.net 
+#
+
+use strict;
+use warnings;
+use Cwd qw(cwd abs_path);
+use Sys::Hostname qw(hostname);
+use File::Basename qw(dirname);
+use File::Spec::Functions qw(catdir);
+use Config::Tiny;
+use Schedule::Cron;
+our $SERENE_AGENT_LIB;
+
+BEGIN {
+    my $path_to_sa = abs_path($0);
+    if (-l $path_to_sa) {
+        $path_to_sa = readlink $path_to_sa;
+    }
+    my $serene_agent_dir = dirname($path_to_sa);
+    $SERENE_AGENT_LIB = catdir($serene_agent_dir, 'lib');
+
+    $ENV{PERL5LIB} .= ":" if $ENV{PERL5LIB};
+    $ENV{PERL5LIB} .= $SERENE_AGENT_LIB;
+    $ENV{SERENE_AGENT_LIB}= $SERENE_AGENT_LIB;
+}
+
+use lib $SERENE_AGENT_LIB;
+use Serene::Agent;
+use Serene::Agent::Config;
+use Serene::Agent::Interact;
+
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+
+sub dispatcher { }
+sub subtask { _ok "subtask" }
+
+{
+
+_load_config();
+
+my $scheduler = new Schedule::Cron(\&dispatcher,skip => 1);
+$scheduler->add_entry("* * * * * */2",\&subtask);
+$scheduler->run();
+
+}0;
