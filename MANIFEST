@@ -1,0 +1,4 @@
+Makefile.PL
+MANIFEST
+lib/Serene/Agent.pm
+serene-agent
