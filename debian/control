@@ -1,0 +1,15 @@
+Source: serene-agent
+Section: admin
+Priority: extra
+Maintainer: Alexandre De Dommelin <adedommelin@tuxz.net>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Homepage: http://www.serene-project.net/
+Vcs-Git: git://github.com/serene-project/serene-agent.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/serene-agent.git;a=summary
+
+Package: serene-agent
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}, libconfig-tiny-perl, libdata-uuid-libuuid-perl
+Description: Serene Project [ agent ] 
+ This package provides the Serene Agent.

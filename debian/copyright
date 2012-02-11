@@ -1,0 +1,24 @@
+This work was packaged for Debian by:
+    Alexandre De Dommelin <adedommelin@tuxz.net> on Sat, 11 Feb 2012 16:05:13 +0000
+
+It was downloaded from:
+    https://github.com/serene-project/serene-agent 
+
+Upstream Author(s):
+    Alexandre De Dommelin <adedommelin@serene-project.net> 
+
+Copyright:
+    Copyright (C) 2012 The Serene Project
+    Alexandre De Dommelin
+    Guillaume Lederrey
+    Olivier Morel
+
+License:
+    BSD 
+
+The Debian packaging is:
+    Copyright (C) 2012 Alexandre De Dommelin <adedommelin@tuxz.net>
+
+and is licensed under the GPL version 3,
+see "/usr/share/common-licenses/GPL-3".
+

@@ -1,0 +1,5 @@
+serene-agent (0.01-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Alexandre De Dommelin <adedommelin@tuxz.net>  Sat, 11 Feb 2012 16:05:13 +0000
