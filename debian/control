@@ -10,6 +10,6 @@ Vcs-Git: git://github.com/serene-project/serene-agent.git
 
 Package: serene-agent
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}, libconfig-tiny-perl, libdata-uuid-libuuid-perl
+Depends: ${misc:Depends}, ${perl:Depends}, libconfig-tiny-perl, libdata-uuid-libuuid-perl, libproc-pid-file-perl, libproc-daemon-perl, liblog-dispatch-perl
 Description: Serene Project [ agent ] 
  This package provides the Serene Agent.
