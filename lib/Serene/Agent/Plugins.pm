@@ -1,6 +1,6 @@
-#!/usr/bin/perl
+package Serene::Agent::Plugins;
 #
-# serene-agent main - The Serene Project 
+# Serene::Agent::Plugins - The Serene Project 
 #
 # Copyright (c) 2012, Alexandre De Dommelin <adedommelin@serene-project.net> 
 # All rights reserved.
@@ -19,26 +19,35 @@
 
 use strict;
 use warnings;
+use Exporter;
 
-use Serene::Agent;
-use Serene::Agent::Config;
-use Serene::Agent::Plugins;
-use Serene::Agent::Interact;
+use Schedule::Cron;
 
-use Data::Dumper;
+our @ISA= qw(Exporter);
+our @EXPORT = qw(
+  _init_scheduler
+  _schedule_all	
+);
 
-{
-  # Load Main Agent Config #
-  my $cfg     = _load_agent_config();
 
-  # Initialize scheduler #
-  my $scheduler = _init_scheduler();
+sub _init_scheduler() {
+  return new Schedule::Cron(\&dispatcher,skip => 1);
+}
 
-  # Load Plugins #
-  my $plugins = _load_agent_plugins($scheduler);
 
-  # Go go go ! #
-  $scheduler->run();
+#XXX fake sub for testing purpose
+sub munin($$) {
+  my ($uuid,$probe) = @_; 
+  print "running [ t: munin, p:$probe, u:$uuid ]\n";
+}
 
-} 0;
 
+sub _schedule($$$$$){
+  my ($p_uuid, $p_type, $p_probe, $p_interval, $scheduler) = @_;
+
+  #XXX must switch between p_type (serene, munin, custom, nagios)
+  $scheduler->add_entry( $p_interval, {'subroutine'=>\&munin, 'arguments'=>[$p_uuid,$p_probe] } );
+}
+
+
+1;
