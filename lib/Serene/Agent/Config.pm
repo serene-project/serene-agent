@@ -47,29 +47,29 @@ sub _load_agent_config() {
 sub _load_agent_plugins($) {
   my $scheduler = shift;
 
-	opendir(DIR, CFG_PLUGINS_DIR) or die $!;
-	while ( my $file = readdir(DIR) ) {
-      my $_f = CFG_PLUGINS_DIR."/".$file;
-	    next unless ( -f $_f && $file =~ m/\.conf$/ );
+  opendir(DIR, CFG_PLUGINS_DIR) or die $!;
+  while ( my $file = readdir(DIR) ) {
+    my $_f = CFG_PLUGINS_DIR."/".$file;
+    next unless ( -f $_f && $file =~ m/\.conf$/ );
 
-      my ($k) = ( $file =~ m/(.*)\.conf/ );
+    my ($k) = ( $file =~ m/(.*)\.conf/ );
 
-      my $plugin            = Config::Tiny->read($_f);
-      my $_plugin_uuid      = $plugin->{$k}->{'uuid'};
-      my $_plugin_type      = $plugin->{$k}->{'type'};
-      my $_plugin_probe     = $plugin->{$k}->{'probe'};
-      my $_plugin_interval  = $plugin->{$k}->{'interval'};
+    my $plugin            = Config::Tiny->read($_f);
+    my $_plugin_uuid      = $plugin->{$k}->{'uuid'};
+    my $_plugin_type      = $plugin->{$k}->{'type'};
+    my $_plugin_probe     = $plugin->{$k}->{'probe'};
+    my $_plugin_interval  = $plugin->{$k}->{'interval'};
 
-      Serene::Agent::Plugins::_schedule(  $_plugin_uuid,
-                                          $_plugin_type,
-                                          $_plugin_probe,
-                                          $_plugin_interval,
-                                          $scheduler  );    
+    Serene::Agent::Plugins::_schedule(  $_plugin_uuid,
+                                        $_plugin_type,
+                                        $_plugin_probe,
+                                        $_plugin_interval,
+                                        $scheduler  );    
 
-      _ok "Loaded $file";
-	}
+    _ok "Loaded $file";
+  }
 
-	closedir(DIR);
+  closedir(DIR);
 }
 
 1;
